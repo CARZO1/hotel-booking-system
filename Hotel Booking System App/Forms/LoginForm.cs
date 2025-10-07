@@ -77,5 +77,10 @@ namespace HotelBookingSystem.Forms
                 // TODO: open CustomerDashboardForm here
             }
         }
+
+        private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
