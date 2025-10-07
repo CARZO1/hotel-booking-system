@@ -1,17 +1,16 @@
-namespace WinFormsApp1
+using System;
+using System.Windows.Forms;
+using HotelBookingSystem.Forms;
+
+namespace HotelBookingSystem
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new LoginForm()); // use LoginForm as the startup form
         }
     }
 }
