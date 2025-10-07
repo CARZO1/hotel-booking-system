@@ -4,8 +4,9 @@
     "\\Hotel Booking System App",
     "\\Hotel Booking System App\\Forms",
     "\\Hotel Booking System App\\Models",
-    "\\Hotel Booking System Tests"
+    "\\Hotel Booking System App\\obj",
+    "\\Hotel Booking System App\\Services"
   ],
-  "SelectedNode": "\\Hotel Booking System App\\Models\\Booking.cs",
+  "SelectedNode": "\\Hotel Booking System App\\Services\\BookingService.cs",
   "PreviewInSolutionExplorer": false
 }
