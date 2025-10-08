@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace HotelBookingSystem.Forms
+﻿namespace HotelBookingSystem.Forms
 {
     public partial class BookingForm : Form
     {
         public BookingForm()
         {
             InitializeComponent();
+            this.Load += BookingFormLoad;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void BookingFormLoad(object? sender, EventArgs e)
         {
-
+            this.Text = "Booking Page";
+            Label lblWelcome = new Label();
+            lblWelcome.Text = "Welcome to the Booking Page!";
+            lblWelcome.AutoSize = true;
+            lblWelcome.Location = new System.Drawing.Point(20, 20);
+            this.Controls.Add(lblWelcome);
         }
     }
 }

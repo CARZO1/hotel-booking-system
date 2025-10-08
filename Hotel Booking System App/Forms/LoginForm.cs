@@ -71,10 +71,14 @@ namespace HotelBookingSystem.Forms
                     MessageBox.Show("Invalid admin credentials.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else // Customer
+            else // Customer login
             {
                 MessageBox.Show($"Welcome, {email}!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // TODO: open CustomerDashboardForm here
+
+                this.Hide();
+                CustomerDashboardForm dashboard = new CustomerDashboardForm();
+                dashboard.FormClosed += (s, args) => this.Close();
+                dashboard.Show();
             }
         }
 
