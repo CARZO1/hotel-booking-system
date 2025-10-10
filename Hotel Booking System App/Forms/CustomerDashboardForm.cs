@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelBookingSystem.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,11 @@ namespace HotelBookingSystem.Forms
 {
     public partial class CustomerDashboardForm : Form
     {
-        public CustomerDashboardForm()
+        private Customer _customer;  // store the logged-in customer
+        public CustomerDashboardForm(Customer c)
         {
             InitializeComponent();
+            _customer = c;
 
             // Wire up button click
             btnBook.Click += BtnBook_Click;

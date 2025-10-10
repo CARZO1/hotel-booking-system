@@ -25,6 +25,7 @@
             lblPassword = new Label();
             txtPassword = new TextBox();
             btnLogin = new Button();
+            btnRegister = new Button();
             SuspendLayout();
             // 
             // lblTitle
@@ -55,7 +56,6 @@
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(150, 23);
             cmbRole.TabIndex = 2;
-            cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
             // 
             // lblEmail
             // 
@@ -99,6 +99,16 @@
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = true;
             // 
+            // btnRegister
+            // 
+            this.btnRegister = new System.Windows.Forms.Button();
+            this.btnRegister.Location = new System.Drawing.Point(235, 200);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(100, 30);
+            this.btnRegister.TabIndex = 8;
+            this.btnRegister.Text = "Register";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            // 
             // LoginForm
             // 
             AcceptButton = btnLogin;
@@ -106,6 +116,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(400, 280);
             Controls.Add(btnLogin);
+            Controls.Add(btnRegister);
             Controls.Add(txtPassword);
             Controls.Add(lblPassword);
             Controls.Add(txtEmail);
@@ -132,5 +143,6 @@
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Button btnRegister;
     }
 }

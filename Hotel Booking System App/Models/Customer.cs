@@ -1,17 +1,20 @@
 using System;
 
-namespace HotelBookingSystemApp.Models
+namespace HotelBookingSystem.Models
 {
     public class Customer
     {
-        public string CustomerId { get; set; } = Guid.NewGuid().ToString();
-        public string FullName { get; set; } = "";
-        public string Email { get; set; } = "";
-        public string PhoneNumber { get; set; } = "";
+        public string Email { get; set; }
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public string Phone { get; set; }
 
-        public override string ToString()
+        public Customer(string email, string name, string password, string phone)
         {
-            return $"{FullName} ({Email})";
+            Email = email;
+            Name = name;
+            Password = password;
+            Phone = phone;
         }
     }
 }
