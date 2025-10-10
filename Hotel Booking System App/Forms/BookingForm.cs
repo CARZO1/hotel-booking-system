@@ -47,16 +47,30 @@ namespace HotelBookingSystem.Forms
             this.Controls.Add(btnBook);
         }
 
+        //private void BtnBook_Click(object? sender, EventArgs e)
+        //{
+        //    if (listRooms.SelectedItem is Room selectedRoom)
+        //    {
+        //        MessageBox.Show(
+        //            $"You selected {selectedRoom}.",
+        //            "Booking Confirmation",
+        //            MessageBoxButtons.OK,
+        //            MessageBoxIcon.Information
+        //        );
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Please select a room first.", "No Room Selected",
+        //            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //    }
+        //}
+
         private void BtnBook_Click(object? sender, EventArgs e)
         {
             if (listRooms.SelectedItem is Room selectedRoom)
             {
-                MessageBox.Show(
-                    $"You selected {selectedRoom}.",
-                    "Booking Confirmation",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
-                );
+                var confirmationForm = new BookingConfirmationForm(selectedRoom);
+                confirmationForm.ShowDialog();
             }
             else
             {
