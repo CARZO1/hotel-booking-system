@@ -45,6 +45,15 @@ namespace HotelBookingSystem.Forms
 
         private void BtnConfirm_Click(object? sender, EventArgs e)
         {
+            // 1. Validate payment first
+            if (!PaymentService.ValidateCard(txtCardNumber.Text, txtExpiry.Text, txtCVV.Text))
+            {
+                MessageBox.Show("Invalid payment details. Please check and try again.", "Payment Failed",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. If payment is valid, continue
             int nights = Math.Max(1, (dtpCheckOut.Value.Date - dtpCheckIn.Value.Date).Days);
             decimal total = nights * selectedRoom.RatePerNight;
 
@@ -60,6 +69,7 @@ namespace HotelBookingSystem.Forms
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bookings.txt");
             File.AppendAllText(filePath, booking.ToFileString() + Environment.NewLine);
 
+            // 3. Success message
             MessageBox.Show(
                 $"Booking confirmed for {booking.CustomerEmail}\n" +
                 $"Room {selectedRoom.Number} from {booking.CheckIn:d} to {booking.CheckOut:d}\n" +
