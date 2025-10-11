@@ -85,8 +85,14 @@ namespace HotelBookingSystem.Forms
             var customer = FileManager.FindCustomer(email, password);
             if (customer is not null)
             {
+                // Set session for global access
+                Session.CurrentUserEmail = customer.Email;
+                Session.CurrentUserName = customer.Name;
+                Session.CurrentUserPhone = customer.Phone;
+                Session.IsAdmin = false;
+
                 this.Hide();
-                var dashboard = new CustomerDashboardForm(customer);
+                var dashboard = new CustomerDashboardForm();
                 dashboard.FormClosed += (_, __) => this.Close();
                 dashboard.Show();
 

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using HotelBookingSystemApp.Models;
+using HotelBookingSystemApp.Services;
+using System;
 using System.Windows.Forms;
-using HotelBookingSystemApp.Models;
+using System.IO;
 
 namespace HotelBookingSystem.Forms
 {
@@ -12,7 +14,7 @@ namespace HotelBookingSystem.Forms
         {
             InitializeComponent();
             selectedRoom = room;
-            this.Load += BookingConfirmationForm_Load;   // <-- fixed name
+            this.Load += BookingConfirmationForm_Load;   // fixed name
         }
 
         private void BookingConfirmationForm_Load(object? sender, EventArgs e)
@@ -43,11 +45,25 @@ namespace HotelBookingSystem.Forms
 
         private void BtnConfirm_Click(object? sender, EventArgs e)
         {
+            int nights = Math.Max(1, (dtpCheckOut.Value.Date - dtpCheckIn.Value.Date).Days);
+            decimal total = nights * selectedRoom.RatePerNight;
+
+            var booking = new Booking
+            {
+                RoomNumber = selectedRoom.Number,
+                CustomerEmail = Session.CurrentUserEmail,
+                CheckIn = dtpCheckIn.Value.Date,
+                CheckOut = dtpCheckOut.Value.Date,
+                TotalPrice = total
+            };
+
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bookings.txt");
+            File.AppendAllText(filePath, booking.ToFileString() + Environment.NewLine);
+
             MessageBox.Show(
-                $"Booking confirmed for room {selectedRoom.Number}\n" +
-                $"Check-in: {dtpCheckIn.Value:d}\n" +
-                $"Check-out: {dtpCheckOut.Value:d}\n" +
-                $"{lblTotal.Text}",
+                $"Booking confirmed for {booking.CustomerEmail}\n" +
+                $"Room {selectedRoom.Number} from {booking.CheckIn:d} to {booking.CheckOut:d}\n" +
+                $"Total: {booking.TotalPrice:C}",
                 "Booking Success",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information

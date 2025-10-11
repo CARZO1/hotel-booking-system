@@ -1,4 +1,6 @@
-﻿using HotelBookingSystem.Models;
+﻿using HotelBookingSystem.Forms;
+using HotelBookingSystem.Models;
+using HotelBookingSystemApp.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,19 +15,18 @@ namespace HotelBookingSystem.Forms
 {
     public partial class CustomerDashboardForm : Form
     {
-        private Customer _customer;  // store the logged-in customer
-        public CustomerDashboardForm(Customer c)
+        public CustomerDashboardForm()
         {
             InitializeComponent();
-            _customer = c;
 
-            // Wire up button click
+            // Use Session instead of needing a Customer object
+            lblWelcome.Text = $"Welcome, {Session.CurrentUserName}!";
+
             btnBook.Click += BtnBook_Click;
         }
 
         private void BtnBook_Click(object? sender, EventArgs e)
         {
-            // Navigate to booking form
             BookingForm bookingForm = new BookingForm();
             bookingForm.Show();
         }
