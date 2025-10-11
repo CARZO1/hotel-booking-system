@@ -62,27 +62,28 @@ namespace HotelBookingSystem.Forms
 
             if (role == "Admin")
             {
-                // Simple mock admin credentials
-                if (email.EndsWith("@hotel.local", StringComparison.OrdinalIgnoreCase) && password == "admin123")
-                {
-                    // Once AdminDashboardForm is created, uncomment below
-                    // this.Hide();
-                    // var admin = new AdminDashboardForm();
-                    // admin.FormClosed += (_, __) => this.Close();
-                    // admin.Show();
+                var admin = FileManager.FindAdmin(email, password);
 
-                    MessageBox.Show("Welcome, Admin!", "Login successful",
+                if (admin != null)
+                {
+                    MessageBox.Show($"Welcome, {admin.Name}!", "Login Successful",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    this.Hide();
+                    var dashboard = new AdminDashboardForm();
+                    dashboard.FormClosed += (_, __) => this.Close();
+                    dashboard.Show();
                 }
                 else
                 {
-                    MessageBox.Show("Invalid admin credentials.", "Login failed",
+                    MessageBox.Show("Invalid admin credentials.", "Login Failed",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                return;
-            }
 
-            var customer = FileManager.FindCustomer(email, password);
+                return;
+             }
+
+        var customer = FileManager.FindCustomer(email, password);
             if (customer is not null)
             {
                 // Set session for global access
