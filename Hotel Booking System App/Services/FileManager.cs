@@ -50,6 +50,30 @@ namespace HotelBookingSystemApp.Services
                 c.Password == password);
         }
 
+        // Load all customers and check if the email already exists (case-insensitive)
+        public static bool EmailExists(string email)
+        {
+            return LoadCustomers()
+                .Any(c => c.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static Customer? FindCustomerByEmail(string email) =>
+            LoadCustomers().FirstOrDefault(c => c.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+        // Update by “old key e-mail”; overwrite file atomically
+        public static bool UpdateCustomer(string originalEmail, Customer updated)
+        {
+            var customers = LoadCustomers();
+            var idx = customers.FindIndex(c => c.Email.Equals(originalEmail, StringComparison.OrdinalIgnoreCase));
+            if (idx < 0) return false;
+
+            customers[idx] = updated;
+
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "customers.txt");
+            File.WriteAllLines(path, customers.Select(c => $"{c.Email},{c.Name},{c.Password},{c.Phone}"));
+            return true;
+        }
+
         public static List<Admin> LoadAdmins()
         {
             List<Admin> admins = new();

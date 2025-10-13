@@ -40,6 +40,7 @@ namespace HotelBookingSystem.Forms
                 MessageBox.Show("Invalid email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(phone))
             {
                 MessageBox.Show("Please fill in all fields.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -47,10 +48,9 @@ namespace HotelBookingSystem.Forms
             }
 
             // Prevent duplicate accounts
-            var existing = FileManager.FindCustomer(email, password);
-            if (existing != null)
+            if (FileManager.EmailExists(email))
             {
-                MessageBox.Show("Account already exists.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("That email is already registered.", "Duplicate Email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

@@ -24,188 +24,193 @@
 
         private void InitializeComponent()
         {
-            this.tabAdmin = new System.Windows.Forms.TabControl();
-            this.tabCustomers = new System.Windows.Forms.TabPage();
-            this.btnRemoveCustomer = new System.Windows.Forms.Button();
-            this.btnAddCustomer = new System.Windows.Forms.Button();
-            this.lstCustomers = new System.Windows.Forms.ListBox();
-            this.tabRooms = new System.Windows.Forms.TabPage();
-            this.btnRemoveRoom = new System.Windows.Forms.Button();
-            this.btnAddRoom = new System.Windows.Forms.Button();
-            this.lstRooms = new System.Windows.Forms.ListBox();
-            this.tabBookings = new System.Windows.Forms.TabPage();
-            this.btnRemoveBooking = new System.Windows.Forms.Button();
-            this.btnAddBooking = new System.Windows.Forms.Button();
-            this.lstBookings = new System.Windows.Forms.ListBox();
-            this.tabAdmin.SuspendLayout();
-            this.tabCustomers.SuspendLayout();
-            this.tabRooms.SuspendLayout();
-            this.tabBookings.SuspendLayout();
-            this.SuspendLayout();
+            tabAdmin = new TabControl();
+            tabCustomers = new TabPage();
+            btnRemoveCustomer = new Button();
+            btnAddCustomer = new Button();
+            lstCustomers = new ListBox();
+            tabRooms = new TabPage();
+            btnRemoveRoom = new Button();
+            btnAddRoom = new Button();
+            lstRooms = new ListBox();
+            tabBookings = new TabPage();
+            btnRemoveBooking = new Button();
+            btnAddBooking = new Button();
+            lstBookings = new ListBox();
+            btnEditCustomer = new Button();
+            tabAdmin.SuspendLayout();
+            tabCustomers.SuspendLayout();
+            tabRooms.SuspendLayout();
+            tabBookings.SuspendLayout();
+            SuspendLayout();
             // 
             // tabAdmin
             // 
-            this.tabAdmin.Controls.Add(this.tabCustomers);
-            this.tabAdmin.Controls.Add(this.tabRooms);
-            this.tabAdmin.Controls.Add(this.tabBookings);
-            this.tabAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabAdmin.Location = new System.Drawing.Point(0, 0);
-            this.tabAdmin.Name = "tabAdmin";
-            this.tabAdmin.SelectedIndex = 0;
-            this.tabAdmin.Size = new System.Drawing.Size(800, 450);
-            this.tabAdmin.TabIndex = 0;
+            tabAdmin.Controls.Add(tabCustomers);
+            tabAdmin.Controls.Add(tabRooms);
+            tabAdmin.Controls.Add(tabBookings);
+            tabAdmin.Dock = DockStyle.Fill;
+            tabAdmin.Location = new Point(0, 0);
+            tabAdmin.Name = "tabAdmin";
+            tabAdmin.SelectedIndex = 0;
+            tabAdmin.Size = new Size(800, 450);
+            tabAdmin.TabIndex = 0;
             // 
             // tabCustomers
             // 
-            this.tabCustomers.Controls.Add(this.btnRemoveCustomer);
-            this.tabCustomers.Controls.Add(this.btnAddCustomer);
-            this.tabCustomers.Controls.Add(this.lstCustomers);
-            this.tabCustomers.Location = new System.Drawing.Point(4, 24);
-            this.tabCustomers.Name = "tabCustomers";
-            this.tabCustomers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCustomers.Size = new System.Drawing.Size(792, 422);
-            this.tabCustomers.TabIndex = 0;
-            this.tabCustomers.Text = "Customers";
-            this.tabCustomers.UseVisualStyleBackColor = true;
+            tabCustomers.Controls.Add(btnEditCustomer);
+            tabCustomers.Controls.Add(btnRemoveCustomer);
+            tabCustomers.Controls.Add(btnAddCustomer);
+            tabCustomers.Controls.Add(lstCustomers);
+            tabCustomers.Location = new Point(4, 24);
+            tabCustomers.Name = "tabCustomers";
+            tabCustomers.Padding = new Padding(3);
+            tabCustomers.Size = new Size(792, 422);
+            tabCustomers.TabIndex = 0;
+            tabCustomers.Text = "Customers";
+            tabCustomers.UseVisualStyleBackColor = true;
             // 
             // btnRemoveCustomer
             // 
-            this.btnRemoveCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveCustomer.Location = new System.Drawing.Point(661, 374);
-            this.btnRemoveCustomer.Name = "btnRemoveCustomer";
-            this.btnRemoveCustomer.Size = new System.Drawing.Size(120, 30);
-            this.btnRemoveCustomer.TabIndex = 2;
-            this.btnRemoveCustomer.Text = "Remove Customer";
-            this.btnRemoveCustomer.UseVisualStyleBackColor = true;
+            btnRemoveCustomer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnRemoveCustomer.Location = new Point(661, 374);
+            btnRemoveCustomer.Name = "btnRemoveCustomer";
+            btnRemoveCustomer.Size = new Size(120, 30);
+            btnRemoveCustomer.TabIndex = 2;
+            btnRemoveCustomer.Text = "Remove Customer";
+            btnRemoveCustomer.UseVisualStyleBackColor = true;
             // 
             // btnAddCustomer
             // 
-            this.btnAddCustomer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddCustomer.Location = new System.Drawing.Point(535, 374);
-            this.btnAddCustomer.Name = "btnAddCustomer";
-            this.btnAddCustomer.Size = new System.Drawing.Size(120, 30);
-            this.btnAddCustomer.TabIndex = 1;
-            this.btnAddCustomer.Text = "Add Customer";
-            this.btnAddCustomer.UseVisualStyleBackColor = true;
+            btnAddCustomer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnAddCustomer.Location = new Point(535, 374);
+            btnAddCustomer.Name = "btnAddCustomer";
+            btnAddCustomer.Size = new Size(120, 30);
+            btnAddCustomer.TabIndex = 1;
+            btnAddCustomer.Text = "Add Customer";
+            btnAddCustomer.UseVisualStyleBackColor = true;
             // 
             // lstCustomers
             // 
-            this.lstCustomers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstCustomers.FormattingEnabled = true;
-            this.lstCustomers.ItemHeight = 15;
-            this.lstCustomers.Location = new System.Drawing.Point(6, 6);
-            this.lstCustomers.Name = "lstCustomers";
-            this.lstCustomers.Size = new System.Drawing.Size(775, 364);
-            this.lstCustomers.TabIndex = 0;
+            lstCustomers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lstCustomers.FormattingEnabled = true;
+            lstCustomers.ItemHeight = 15;
+            lstCustomers.Location = new Point(6, 6);
+            lstCustomers.Name = "lstCustomers";
+            lstCustomers.Size = new Size(775, 364);
+            lstCustomers.TabIndex = 0;
             // 
             // tabRooms
             // 
-            this.tabRooms.Controls.Add(this.btnRemoveRoom);
-            this.tabRooms.Controls.Add(this.btnAddRoom);
-            this.tabRooms.Controls.Add(this.lstRooms);
-            this.tabRooms.Location = new System.Drawing.Point(4, 24);
-            this.tabRooms.Name = "tabRooms";
-            this.tabRooms.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRooms.Size = new System.Drawing.Size(792, 422);
-            this.tabRooms.TabIndex = 1;
-            this.tabRooms.Text = "Rooms";
-            this.tabRooms.UseVisualStyleBackColor = true;
+            tabRooms.Controls.Add(btnRemoveRoom);
+            tabRooms.Controls.Add(btnAddRoom);
+            tabRooms.Controls.Add(lstRooms);
+            tabRooms.Location = new Point(4, 24);
+            tabRooms.Name = "tabRooms";
+            tabRooms.Padding = new Padding(3);
+            tabRooms.Size = new Size(792, 422);
+            tabRooms.TabIndex = 1;
+            tabRooms.Text = "Rooms";
+            tabRooms.UseVisualStyleBackColor = true;
             // 
             // btnRemoveRoom
             // 
-            this.btnRemoveRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveRoom.Location = new System.Drawing.Point(661, 374);
-            this.btnRemoveRoom.Name = "btnRemoveRoom";
-            this.btnRemoveRoom.Size = new System.Drawing.Size(120, 30);
-            this.btnRemoveRoom.TabIndex = 2;
-            this.btnRemoveRoom.Text = "Remove Room";
-            this.btnRemoveRoom.UseVisualStyleBackColor = true;
+            btnRemoveRoom.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnRemoveRoom.Location = new Point(661, 374);
+            btnRemoveRoom.Name = "btnRemoveRoom";
+            btnRemoveRoom.Size = new Size(120, 30);
+            btnRemoveRoom.TabIndex = 2;
+            btnRemoveRoom.Text = "Remove Room";
+            btnRemoveRoom.UseVisualStyleBackColor = true;
             // 
             // btnAddRoom
             // 
-            this.btnAddRoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddRoom.Location = new System.Drawing.Point(535, 374);
-            this.btnAddRoom.Name = "btnAddRoom";
-            this.btnAddRoom.Size = new System.Drawing.Size(120, 30);
-            this.btnAddRoom.TabIndex = 1;
-            this.btnAddRoom.Text = "Add Room";
-            this.btnAddRoom.UseVisualStyleBackColor = true;
+            btnAddRoom.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnAddRoom.Location = new Point(535, 374);
+            btnAddRoom.Name = "btnAddRoom";
+            btnAddRoom.Size = new Size(120, 30);
+            btnAddRoom.TabIndex = 1;
+            btnAddRoom.Text = "Add Room";
+            btnAddRoom.UseVisualStyleBackColor = true;
             // 
             // lstRooms
             // 
-            this.lstRooms.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstRooms.FormattingEnabled = true;
-            this.lstRooms.ItemHeight = 15;
-            this.lstRooms.Location = new System.Drawing.Point(6, 6);
-            this.lstRooms.Name = "lstRooms";
-            this.lstRooms.Size = new System.Drawing.Size(775, 364);
-            this.lstRooms.TabIndex = 0;
+            lstRooms.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lstRooms.FormattingEnabled = true;
+            lstRooms.ItemHeight = 15;
+            lstRooms.Location = new Point(6, 6);
+            lstRooms.Name = "lstRooms";
+            lstRooms.Size = new Size(775, 364);
+            lstRooms.TabIndex = 0;
             // 
             // tabBookings
             // 
-            this.tabBookings.Controls.Add(this.btnRemoveBooking);
-            this.tabBookings.Controls.Add(this.btnAddBooking);
-            this.tabBookings.Controls.Add(this.lstBookings);
-            this.tabBookings.Location = new System.Drawing.Point(4, 24);
-            this.tabBookings.Name = "tabBookings";
-            this.tabBookings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBookings.Size = new System.Drawing.Size(792, 422);
-            this.tabBookings.TabIndex = 2;
-            this.tabBookings.Text = "Bookings";
-            this.tabBookings.UseVisualStyleBackColor = true;
+            tabBookings.Controls.Add(btnRemoveBooking);
+            tabBookings.Controls.Add(btnAddBooking);
+            tabBookings.Controls.Add(lstBookings);
+            tabBookings.Location = new Point(4, 24);
+            tabBookings.Name = "tabBookings";
+            tabBookings.Padding = new Padding(3);
+            tabBookings.Size = new Size(792, 422);
+            tabBookings.TabIndex = 2;
+            tabBookings.Text = "Bookings";
+            tabBookings.UseVisualStyleBackColor = true;
             // 
             // btnRemoveBooking
             // 
-            this.btnRemoveBooking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveBooking.Location = new System.Drawing.Point(661, 374);
-            this.btnRemoveBooking.Name = "btnRemoveBooking";
-            this.btnRemoveBooking.Size = new System.Drawing.Size(120, 30);
-            this.btnRemoveBooking.TabIndex = 2;
-            this.btnRemoveBooking.Text = "Remove Booking";
-            this.btnRemoveBooking.UseVisualStyleBackColor = true;
+            btnRemoveBooking.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnRemoveBooking.Location = new Point(661, 374);
+            btnRemoveBooking.Name = "btnRemoveBooking";
+            btnRemoveBooking.Size = new Size(120, 30);
+            btnRemoveBooking.TabIndex = 2;
+            btnRemoveBooking.Text = "Remove Booking";
+            btnRemoveBooking.UseVisualStyleBackColor = true;
             // 
             // btnAddBooking
             // 
-            this.btnAddBooking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddBooking.Location = new System.Drawing.Point(535, 374);
-            this.btnAddBooking.Name = "btnAddBooking";
-            this.btnAddBooking.Size = new System.Drawing.Size(120, 30);
-            this.btnAddBooking.TabIndex = 1;
-            this.btnAddBooking.Text = "Add Booking";
-            this.btnAddBooking.UseVisualStyleBackColor = true;
+            btnAddBooking.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnAddBooking.Location = new Point(535, 374);
+            btnAddBooking.Name = "btnAddBooking";
+            btnAddBooking.Size = new Size(120, 30);
+            btnAddBooking.TabIndex = 1;
+            btnAddBooking.Text = "Add Booking";
+            btnAddBooking.UseVisualStyleBackColor = true;
             // 
             // lstBookings
             // 
-            this.lstBookings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstBookings.FormattingEnabled = true;
-            this.lstBookings.ItemHeight = 15;
-            this.lstBookings.Location = new System.Drawing.Point(6, 6);
-            this.lstBookings.Name = "lstBookings";
-            this.lstBookings.Size = new System.Drawing.Size(775, 364);
-            this.lstBookings.TabIndex = 0;
+            lstBookings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lstBookings.FormattingEnabled = true;
+            lstBookings.ItemHeight = 15;
+            lstBookings.Location = new Point(6, 6);
+            lstBookings.Name = "lstBookings";
+            lstBookings.Size = new Size(775, 364);
+            lstBookings.TabIndex = 0;
+            // 
+            // btnEditCustomer
+            // 
+            btnEditCustomer.Location = new Point(416, 374);
+            btnEditCustomer.Name = "btnEditCustomer";
+            btnEditCustomer.Size = new Size(113, 30);
+            btnEditCustomer.TabIndex = 3;
+            btnEditCustomer.Text = "Edit Customer";
+            btnEditCustomer.UseVisualStyleBackColor = true;
             // 
             // AdminDashboardForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.tabAdmin);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.Name = "AdminDashboardForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Admin Dashboard";
-            this.tabAdmin.ResumeLayout(false);
-            this.tabCustomers.ResumeLayout(false);
-            this.tabRooms.ResumeLayout(false);
-            this.tabBookings.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(tabAdmin);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
+            Name = "AdminDashboardForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Admin Dashboard";
+            tabAdmin.ResumeLayout(false);
+            tabCustomers.ResumeLayout(false);
+            tabRooms.ResumeLayout(false);
+            tabBookings.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
@@ -223,5 +228,6 @@
         private System.Windows.Forms.Button btnRemoveBooking;
         private System.Windows.Forms.Button btnAddBooking;
         private System.Windows.Forms.ListBox lstBookings;
+        private Button btnEditCustomer;
     }
 }
