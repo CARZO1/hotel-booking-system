@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-namespace HotelBookingSystemApp.Services
+namespace HotelBookingSystem.Services
 {
     public static class Utilities
     {

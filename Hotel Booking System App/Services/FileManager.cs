@@ -1,11 +1,10 @@
 using HotelBookingSystem.Models;
-using HotelBookingSystemApp.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace HotelBookingSystemApp.Services
+namespace HotelBookingSystem.Services
 {
     public static class FileManager
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using HotelBookingSystemApp.Services;
+using HotelBookingSystem.Services;
 
 namespace HotelBookingSystem.Forms
 {

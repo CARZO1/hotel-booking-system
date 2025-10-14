@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HotelBookingSystemApp.Models;
+using HotelBookingSystem.Models;
 
-namespace HotelBookingSystemApp.Services
+namespace HotelBookingSystem.Services
 {
     // Service to manage bookings
     // NOTE: right now this is in memory only, no file/db

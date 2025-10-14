@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using HotelBookingSystem.Models;
-using HotelBookingSystemApp.Services;
+using HotelBookingSystem.Services;
 
 namespace HotelBookingSystem.Forms
 {

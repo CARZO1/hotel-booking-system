@@ -1,4 +1,4 @@
-namespace HotelBookingSystemApp.Services
+namespace HotelBookingSystem.Services
 {
     public static class PaymentService
     {

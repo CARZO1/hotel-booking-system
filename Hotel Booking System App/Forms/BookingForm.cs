@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using HotelBookingSystemApp.Models; // to use Room
+using HotelBookingSystem.Models; // to use Room
 
 namespace HotelBookingSystem.Forms
 {

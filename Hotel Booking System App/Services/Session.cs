@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelBookingSystemApp.Services
+namespace HotelBookingSystem.Services
 {
     public static class Session
     {
