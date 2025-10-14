@@ -8,3 +8,5 @@ obj/
 *.log
 *.db
 *.opendb
+Hotel Booking System App\obj\project.assets.json
+Hotel Booking System App\obj\project.nuget.cache

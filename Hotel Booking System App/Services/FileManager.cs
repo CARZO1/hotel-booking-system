@@ -1,8 +1,9 @@
+using HotelBookingSystem.Models;
+using HotelBookingSystemApp.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using HotelBookingSystem.Models;
 
 namespace HotelBookingSystemApp.Services
 {
@@ -13,6 +14,9 @@ namespace HotelBookingSystemApp.Services
 
         private static readonly string adminsPath =
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "admins.txt");
+
+        private static readonly string bookingsPath =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bookings.txt");
 
         public static List<Customer> LoadCustomers()
         {
@@ -37,7 +41,8 @@ namespace HotelBookingSystemApp.Services
             return customers;
         }
 
-        public static void SaveCustomer(Customer c)
+        // saves a new customer by appending to the file
+        public static void SaveCustomer(Customer c) 
         {
             string line = $"{c.Email},{c.Name},{c.Password},{c.Phone}";
             File.AppendAllLines(filePath, new[] { line });
@@ -101,6 +106,26 @@ namespace HotelBookingSystemApp.Services
             return LoadAdmins().FirstOrDefault(a =>
                 a.Email.Equals(email, StringComparison.OrdinalIgnoreCase) &&
                 a.Password == password);
+        }
+
+        public static List<Booking> LoadBookings()
+        {
+            if (!File.Exists(bookingsPath)) return new List<Booking>();
+            return File.ReadAllLines(bookingsPath)
+                       .Where(line => !string.IsNullOrWhiteSpace(line))
+                       .Select(Booking.FromFileString)   // uses your parser
+                       .ToList();
+        }
+
+        public static bool RemoveBookingById(string bookingId)
+        {
+            var all = LoadBookings();
+            int before = all.Count;
+            all.RemoveAll(b => string.Equals(b.BookingId, bookingId, StringComparison.OrdinalIgnoreCase));
+            if (all.Count == before) return false;
+
+            File.WriteAllLines(bookingsPath, all.Select(b => b.ToFileString()));
+            return true;
         }
     }
 }

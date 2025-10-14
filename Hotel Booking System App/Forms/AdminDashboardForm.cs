@@ -1,15 +1,15 @@
-﻿using System;
+﻿using HotelBookingSystemApp.Models;
+using HotelBookingSystemApp.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HotelBookingSystemApp.Services;
-using HotelBookingSystem.Models;
-using System.IO;
 
 namespace HotelBookingSystem.Forms
 {
@@ -36,6 +36,7 @@ namespace HotelBookingSystem.Forms
             btnRemoveBooking.Click += BtnRemoveBooking_Click;
 
             LoadCustomers();
+            LoadBookings();
         }
 
         // Customers
@@ -45,6 +46,18 @@ namespace HotelBookingSystem.Forms
             var customers = FileManager.LoadCustomers();
             foreach (var c in customers)
                 lstCustomers.Items.Add($"{c.Name} - {c.Email} ({c.Phone})");
+        }
+
+        // Bookings
+        private void LoadBookings()
+        {
+            lstBookings.Items.Clear();
+            foreach (var b in FileManager.LoadBookings()
+                                         .OrderBy(b => b.CheckIn)
+                                         .ThenBy(b => b.RoomNumber))
+            {
+                lstBookings.Items.Add(b); // displays via Booking.ToString()
+            }
         }
 
         private void BtnAddCustomer_Click(object? sender, EventArgs e)
@@ -124,13 +137,34 @@ namespace HotelBookingSystem.Forms
         // Bookings
         private void BtnAddBooking_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Add Booking functionality coming soon!");
+            using var dlg = new BookingForm();
+            dlg.ShowDialog(this);   // user confirms inside BookingConfirmationForm
+            LoadBookings();         // refresh from file after dialog closes
         }
 
         private void BtnRemoveBooking_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Remove Booking functionality coming soon!");
+            if (lstBookings.SelectedItem is not Booking selected)
+            {
+                MessageBox.Show("Please select a booking to remove.");
+                return;
+            }
+
+            var confirm = MessageBox.Show("Delete this booking?", "Confirm",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.Yes) return;
+
+            if (FileManager.RemoveBookingById(selected.BookingId))
+            {
+                LoadBookings();
+                MessageBox.Show("Booking removed.");
+            }
+            else
+            {
+                MessageBox.Show("Delete failed. Booking may not exist.");
+            }
         }
+
     }
 }
 
