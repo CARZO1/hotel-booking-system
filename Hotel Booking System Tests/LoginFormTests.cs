@@ -2,8 +2,8 @@ using NUnit.Framework;
 using System;
 using System.IO;
 using System.Linq;
-using HotelBookingSystemApp.Services;
-using HotelBookingSystemApp.Models;
+using HotelBookingSystem.Services;
+using HotelBookingSystem.Models;
 
 namespace Hotel_Booking_System_Tests
 {

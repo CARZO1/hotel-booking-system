@@ -1,5 +1,5 @@
 using HotelBookingSystem.Models;
-using HotelBookingSystemApp.Services;
+using HotelBookingSystem.Services;
 using NUnit.Framework;
 using System;
 using System.IO;
