@@ -66,6 +66,14 @@ namespace HotelBookingSystem.Forms
                 TotalPrice = total
             };
 
+            GlobalServices.BookingService.MakeBooking(
+                booking.CustomerEmail,
+                booking.RoomNumber,
+                booking.CheckIn,
+                booking.CheckOut,
+                selectedRoom.RatePerNight
+            );
+
             string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bookings.txt");
             File.AppendAllText(filePath, booking.ToFileString() + Environment.NewLine);
 

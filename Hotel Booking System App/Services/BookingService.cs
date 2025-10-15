@@ -13,32 +13,64 @@ namespace HotelBookingSystem.Services
         private List<Booking> bookings = new List<Booking>();
 
         // create a booking if no conflicts
-        public bool MakeBooking(string customerId, string roomId, DateTime checkIn, DateTime checkOut, decimal nightlyRate)
+        public bool MakeBooking(string customerEmail, string roomNumber, DateTime checkIn, DateTime checkOut, decimal nightlyRate)
         {
-            // TODO: check for overlaps here
-            // TODO: if no conflict, create new booking and add to list
-            return false; // temp return until implemented
+            // Check if any existing booking overlaps
+            bool hasConflict = bookings.Any(b =>
+                b.RoomNumber == roomNumber &&
+                !b.IsCancelled &&
+                b.CheckIn < checkOut &&
+                b.CheckOut > checkIn
+            );
+
+            if (hasConflict)
+            {
+                return false; // conflict found, booking not created
+            }
+
+            // Create a new booking object
+            var newBooking = new Booking
+            {
+                BookingId = Guid.NewGuid().ToString(),
+                CustomerEmail = customerEmail,
+                RoomNumber = roomNumber,
+                CheckIn = checkIn,
+                CheckOut = checkOut,
+                TotalPrice = nightlyRate * Math.Max(1, (checkOut - checkIn).Days),
+                IsCancelled = false
+            };
+
+            // Add to the in-memory list
+            bookings.Add(newBooking);
+            return true;
         }
 
         // cancel booking by id
         public bool CancelBooking(string bookingId)
         {
-            // TODO: look up booking by ID and mark as cancelled
-            return false; // temp return until implemented
+            var booking = bookings.FirstOrDefault(b => b.BookingId == bookingId);
+            if (booking != null)
+            {
+                booking.IsCancelled = true;
+                return true;
+            }
+            return false;
         }
 
         // get all bookings for a room 
-        public List<Booking> GetBookingsForRoom(string roomId)
+        public List<Booking> GetBookingsForRoom(string roomNumber)
         {
-            // TODO: filter bookings by room id
-            return new List<Booking>(); // temp return
+            return bookings
+                .Where(b => b.RoomNumber == roomNumber)
+                .ToList();
         }
 
-        // get all bookings for a customer (useful for my bookings page)
-        public List<Booking> GetBookingsForCustomer(string customerId)
+        // get all bookings for a customer (useful for "My Bookings" page)
+        public List<Booking> GetBookingsForCustomer(string customerEmail)
         {
-            // TODO: filter bookings by customer id
-            return new List<Booking>(); // temp return
+            return bookings
+                .Where(b => b.CustomerEmail == customerEmail)
+                .ToList();
         }
     }
 }

@@ -20,37 +20,53 @@
 
         private void InitializeComponent()
         {
-            this.lblWelcome = new System.Windows.Forms.Label();
-            this.btnBook = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            lblWelcome = new Label();
+            btnBook = new Button();
+            btnManageBooking = new Button();
+            SuspendLayout();
             // 
             // lblWelcome
             // 
-            this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Location = new System.Drawing.Point(20, 20);
-            this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(200, 20);
-            this.lblWelcome.Text = "Welcome!";
+            lblWelcome.AutoSize = true;
+            lblWelcome.Location = new Point(20, 20);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(60, 15);
+            lblWelcome.TabIndex = 0;
+            lblWelcome.Text = "Welcome!";
             // 
             // btnBook
             // 
-            this.btnBook.Location = new System.Drawing.Point(20, 60);
-            this.btnBook.Name = "btnBook";
-            this.btnBook.Size = new System.Drawing.Size(120, 30);
-            this.btnBook.Text = "Make a Booking";
-            this.btnBook.UseVisualStyleBackColor = true;
+            btnBook.Location = new Point(20, 60);
+            btnBook.Name = "btnBook";
+            btnBook.Size = new Size(120, 30);
+            btnBook.TabIndex = 1;
+            btnBook.Text = "Make a Booking";
+            btnBook.UseVisualStyleBackColor = true;
+            // 
+            // btnManageBooking
+            // 
+            btnManageBooking.Location = new Point(20, 96);
+            btnManageBooking.Name = "btnManageBooking";
+            btnManageBooking.Size = new Size(120, 30);
+            btnManageBooking.TabIndex = 2;
+            btnManageBooking.Text = "Manage Booking";
+            btnManageBooking.UseVisualStyleBackColor = true;
+            btnManageBooking.Click += btnManageBooking_Click;
             // 
             // CustomerDashboardForm
             // 
-            this.ClientSize = new System.Drawing.Size(400, 200);
-            this.Controls.Add(this.lblWelcome);
-            this.Controls.Add(this.btnBook);
-            this.Name = "CustomerDashboardForm";
-            this.Text = "Customer Dashboard";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            ClientSize = new Size(400, 200);
+            Controls.Add(btnManageBooking);
+            Controls.Add(lblWelcome);
+            Controls.Add(btnBook);
+            Name = "CustomerDashboardForm";
+            Text = "Customer Dashboard";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Button btnManageBooking;
     }
 }
