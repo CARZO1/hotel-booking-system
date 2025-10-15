@@ -23,6 +23,7 @@
             lblWelcome = new Label();
             btnBook = new Button();
             btnManageBooking = new Button();
+            btnCustomerDetails = new Button();
             SuspendLayout();
             // 
             // lblWelcome
@@ -53,9 +54,20 @@
             btnManageBooking.UseVisualStyleBackColor = true;
             btnManageBooking.Click += btnManageBooking_Click;
             // 
+            // btnCustomerDetails
+            // 
+            btnCustomerDetails.Location = new Point(20, 132);
+            btnCustomerDetails.Name = "btnCustomerDetails";
+            btnCustomerDetails.Size = new Size(120, 30);
+            btnCustomerDetails.TabIndex = 3;
+            btnCustomerDetails.Text = "Customer Details";
+            btnCustomerDetails.UseVisualStyleBackColor = true;
+            btnCustomerDetails.Click += button1_Click;
+            // 
             // CustomerDashboardForm
             // 
             ClientSize = new Size(400, 200);
+            Controls.Add(btnCustomerDetails);
             Controls.Add(btnManageBooking);
             Controls.Add(lblWelcome);
             Controls.Add(btnBook);
@@ -68,5 +80,6 @@
         #endregion
 
         private Button btnManageBooking;
+        private Button btnCustomerDetails;
     }
 }

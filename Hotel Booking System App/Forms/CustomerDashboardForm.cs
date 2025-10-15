@@ -40,5 +40,11 @@ namespace HotelBookingSystem.Forms
             ManageBooking manageBookingForm = new ManageBooking();
             manageBookingForm.Show();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            CustomerDetailsForm detailsForm = new CustomerDetailsForm();
+            detailsForm.ShowDialog();
+        }
     }
 }
