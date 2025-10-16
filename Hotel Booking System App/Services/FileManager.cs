@@ -17,6 +17,9 @@ namespace HotelBookingSystem.Services
         private static readonly string bookingsPath =
             Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bookings.txt");
 
+        private static readonly string roomsPath =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "rooms.txt");
+
         public static List<Customer> LoadCustomers()
         {
             List<Customer> customers = new();
@@ -124,6 +127,55 @@ namespace HotelBookingSystem.Services
             if (all.Count == before) return false;
 
             File.WriteAllLines(bookingsPath, all.Select(b => b.ToFileString()));
+            return true;
+        }
+
+        private static string RoomToLine(Room r) =>
+            $"{r.Number}|{r.Type}|{r.Beds}|{r.Bathrooms}|{r.RatePerNight}|{r.IsAvailable}";
+
+        private static Room LineToRoom(string line)
+        {
+            var p = line.Split('|');
+            return new Room
+            {
+                Number = p[0],
+                Type = p[1],
+                Beds = int.Parse(p[2]),
+                Bathrooms = int.Parse(p[3]),
+                RatePerNight = decimal.Parse(p[4]),
+                IsAvailable = bool.Parse(p[5])
+            };
+        }
+
+        public static List<Room> LoadRooms()
+        {
+            if (!File.Exists(roomsPath)) return new List<Room>();
+            return File.ReadAllLines(roomsPath)
+                       .Where(l => !string.IsNullOrWhiteSpace(l))
+                       .Select(LineToRoom)
+                       .ToList();
+        }
+
+        public static void SaveRoom(Room room)
+        {
+            var rooms = LoadRooms();
+
+            // Ensure unique room number
+            if (rooms.Any(r => r.Number.Equals(room.Number, StringComparison.OrdinalIgnoreCase)))
+                throw new InvalidOperationException("A room with this number already exists.");
+
+            rooms.Add(room);
+            File.WriteAllLines(roomsPath, rooms.Select(RoomToLine));
+        }
+
+        public static bool RemoveRoomByNumber(string number)
+        {
+            var rooms = LoadRooms();
+            int before = rooms.Count;
+            rooms.RemoveAll(r => r.Number.Equals(number, StringComparison.OrdinalIgnoreCase));
+            if (rooms.Count == before) return false;
+
+            File.WriteAllLines(roomsPath, rooms.Select(RoomToLine));
             return true;
         }
     }

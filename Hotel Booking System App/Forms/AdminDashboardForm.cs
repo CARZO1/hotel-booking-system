@@ -36,6 +36,7 @@ namespace HotelBookingSystem.Forms
             btnRemoveBooking.Click += BtnRemoveBooking_Click;
 
             LoadCustomers();
+            LoadRooms();
             LoadBookings();
         }
 
@@ -58,6 +59,18 @@ namespace HotelBookingSystem.Forms
             {
                 lstBookings.Items.Add(b); // displays via Booking.ToString()
             }
+        }
+
+        private void LoadRooms()
+        {
+            lstRooms.Items.Clear();
+            var rooms = FileManager.LoadRooms()
+                                   .OrderBy(r => r.Number, StringComparer.OrdinalIgnoreCase)
+                                   .ToList();
+
+            // Store the actual Room objects so we don't have to re-parse later
+            foreach (var r in rooms)
+                lstRooms.Items.Add(r); // uses Room.ToString()
         }
 
         private void BtnAddCustomer_Click(object? sender, EventArgs e)
@@ -126,12 +139,43 @@ namespace HotelBookingSystem.Forms
         // Rooms
         private void BtnAddRoom_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Add Room functionality coming soon!");
+            using var dlg = new AddRoomForm();
+            if (dlg.ShowDialog(this) != DialogResult.OK || dlg.CreatedRoom is null) return;
+
+            try
+            {
+                FileManager.SaveRoom(dlg.CreatedRoom);
+                LoadRooms();
+                MessageBox.Show("Room added successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Add Room Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnRemoveRoom_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("Remove Room functionality coming soon!");
+            if (lstRooms.SelectedItem is not Room selected)
+            {
+                MessageBox.Show("Please select a room to remove.");
+                return;
+            }
+
+            var confirm = MessageBox.Show($"Delete Room {selected.Number}?",
+                "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirm != DialogResult.Yes) return;
+
+            if (FileManager.RemoveRoomByNumber(selected.Number))
+            {
+                LoadRooms();
+                MessageBox.Show("Room removed.");
+            }
+            else
+            {
+                MessageBox.Show("Remove failed - room may not exist.");
+            }
         }
 
         // Bookings

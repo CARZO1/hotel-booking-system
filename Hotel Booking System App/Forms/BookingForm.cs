@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using HotelBookingSystem.Models; // to use Room
+using HotelBookingSystem.Services; // to use FileManager
 
 namespace HotelBookingSystem.Forms
 {
@@ -33,12 +34,22 @@ namespace HotelBookingSystem.Forms
             this.Controls.Add(listRooms);
 
             // Load sample rooms
-            var rooms = Room.GetRooms();
-            foreach (var room in rooms)
-            {
-                listRooms.Items.Add(room); // ToString()
-            }
+            var rooms = FileManager.LoadRooms(); foreach (var room in rooms)
 
+            if (rooms.Count == 0)
+                {
+                    MessageBox.Show("No rooms found in rooms.txt.\nAdmins can add rooms from the Admin Dashboard.",
+                        "No Rooms Available",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                else
+                {
+                    foreach (var r in rooms.OrderBy(r => r.Number))
+                    {
+                        listRooms.Items.Add(r); // ToString() used for display
+                    }
+                }
             // Book button
             btnBook = new Button();
             btnBook.Text = "Book Selected Room";
