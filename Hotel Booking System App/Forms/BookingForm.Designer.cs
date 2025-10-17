@@ -4,6 +4,7 @@
     {
         private System.ComponentModel.IContainer components = null;
 
+        // cleanup resources
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -14,18 +15,16 @@
         }
 
         #region Windows Form Designer generated code
-
+        // this method builds the base form
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
             // BookingForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F); // scaling for UI
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "BookingForm";
-            this.Text = "Booking Page";
+            this.ClientSize = new System.Drawing.Size(800, 450); // size of window
+            this.Name = "BookingForm";  // internal name
+            this.Text = "Booking Page"; // text on window title bar
             this.ResumeLayout(false);
         }
 
