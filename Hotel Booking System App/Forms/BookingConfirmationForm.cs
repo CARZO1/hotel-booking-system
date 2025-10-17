@@ -1,8 +1,10 @@
 ﻿using HotelBookingSystem.Models;
 using HotelBookingSystem.Services;
+using HotelBookingSystemApp.Services;
 using System;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
+
 
 namespace HotelBookingSystem.Forms
 {
@@ -10,31 +12,31 @@ namespace HotelBookingSystem.Forms
     {
         private readonly Room selectedRoom;
 
+
         public BookingConfirmationForm(Room room)
         {
             InitializeComponent();
             selectedRoom = room;
-            this.Load += BookingConfirmationForm_Load;   // fixed name
+            this.Load += BookingConfirmationForm_Load;
         }
+
 
         private void BookingConfirmationForm_Load(object? sender, EventArgs e)
         {
             this.Text = "Booking Confirmation";
-
-            // Show selected room details (your Room.ToString())
             lblRoomDetails.Text = selectedRoom.ToString();
 
-            // Default dates
+
             dtpCheckIn.Value = DateTime.Today;
             dtpCheckOut.Value = DateTime.Today.AddDays(1);
-
             UpdateTotalPrice();
 
-            // Recalculate when dates change
+
             dtpCheckIn.ValueChanged += (_, __) => UpdateTotalPrice();
             dtpCheckOut.ValueChanged += (_, __) => UpdateTotalPrice();
             btnConfirm.Click += BtnConfirm_Click;
         }
+
 
         private void UpdateTotalPrice()
         {
@@ -43,20 +45,35 @@ namespace HotelBookingSystem.Forms
             lblTotal.Text = $"Total Price: {total:C} for {nights} night(s)";
         }
 
+
         private void BtnConfirm_Click(object? sender, EventArgs e)
         {
-            // 1. Validate payment first
-            if (!PaymentService.ValidateCard(txtCardNumber.Text, txtExpiry.Text, txtCVV.Text))
+            if (selectedRoom == null)
             {
-                MessageBox.Show("Invalid payment details. Please check and try again.", "Payment Failed",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No room selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Session.CurrentUserEmail))
+            {
+                MessageBox.Show("You must be logged in to book.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // 2. If payment is valid, continue
+
+            //Updated to include cardName param
+            if (!PaymentService.ValidateCard(txtCardName.Text, txtCardNumber.Text, txtExpiry.Text, txtCVV.Text))
+            {
+                MessageBox.Show("Invalid payment details. Please check and try again.",
+                "Payment Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
             int nights = Math.Max(1, (dtpCheckOut.Value.Date - dtpCheckIn.Value.Date).Days);
             decimal total = nights * selectedRoom.RatePerNight;
 
+
+            // Save booking directly through BookingService
             var booking = new Booking
             {
                 RoomNumber = selectedRoom.Number,
@@ -66,26 +83,38 @@ namespace HotelBookingSystem.Forms
                 TotalPrice = total
             };
 
-            GlobalServices.BookingService.MakeBooking(
-                booking.CustomerEmail,
-                booking.RoomNumber,
-                booking.CheckIn,
-                booking.CheckOut,
-                selectedRoom.RatePerNight
+
+            bool ok = BookingService.MakeBooking(
+            booking.CustomerEmail,
+            booking.RoomNumber,
+            booking.CheckIn,
+            booking.CheckOut,
+            selectedRoom.RatePerNight
             );
 
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bookings.txt");
-            File.AppendAllText(filePath, booking.ToFileString() + Environment.NewLine);
 
-            // 3. Success message
+            if (!ok)
+            {
+                MessageBox.Show("This room is already booked for the selected dates.",
+                "Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+
+            // Safe reference generation
+            string shortRef = booking.BookingId.Substring(0, Math.Min(8, booking.BookingId.Length)).ToUpper();
+
+
             MessageBox.Show(
-                $"Booking confirmed for {booking.CustomerEmail}\n" +
-                $"Room {selectedRoom.Number} from {booking.CheckIn:d} to {booking.CheckOut:d}\n" +
-                $"Total: {booking.TotalPrice:C}",
-                "Booking Success",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
+            $"Booking confirmed for {booking.CustomerEmail}\n" +
+            $"Room {selectedRoom.Number} from {booking.CheckIn:d} to {booking.CheckOut:d}\n" +
+            $"Total: {booking.TotalPrice:C}\n\n" +
+            $"Reference: {shortRef}",
+            "Booking Success",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information
             );
+
 
             this.Close();
         }

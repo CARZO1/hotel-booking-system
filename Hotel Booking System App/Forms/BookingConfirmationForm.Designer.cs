@@ -28,15 +28,15 @@ namespace HotelBookingSystem.Forms
 
         private void InitializeComponent()
         {
-            this.lblRoomDetails = new System.Windows.Forms.Label();
-            this.dtpCheckIn = new System.Windows.Forms.DateTimePicker();
-            this.dtpCheckOut = new System.Windows.Forms.DateTimePicker();
-            this.lblTotal = new System.Windows.Forms.Label();
-            this.btnConfirm = new System.Windows.Forms.Button();
-            this.txtCardName = new System.Windows.Forms.TextBox();
-            this.txtCardNumber = new System.Windows.Forms.TextBox();
-            this.txtExpiry = new System.Windows.Forms.TextBox();
-            this.txtCVV = new System.Windows.Forms.TextBox();
+            this.lblRoomDetails = new Label();
+            this.dtpCheckIn = new DateTimePicker();
+            this.dtpCheckOut = new DateTimePicker();
+            this.lblTotal = new Label();
+            this.btnConfirm = new Button();
+            this.txtCardName = new TextBox();
+            this.txtCardNumber = new TextBox();
+            this.txtExpiry = new TextBox();
+            this.txtCVV = new TextBox();
 
             this.SuspendLayout();
 
@@ -62,24 +62,28 @@ namespace HotelBookingSystem.Forms
             this.lblTotal.Size = new Size(120, 20);
             this.lblTotal.Text = "Total Price: $0.00";
 
-            // Cardholder Name
+            // txtCardName
             this.txtCardName.Location = new Point(20, 180);
             this.txtCardName.Width = 250;
+            this.txtCardName.Name = "txtCardName";
             this.txtCardName.PlaceholderText = "Cardholder Name";
 
-            // Card Number
+            // txtCardNumber
             this.txtCardNumber.Location = new Point(20, 220);
             this.txtCardNumber.Width = 250;
+            this.txtCardNumber.Name = "txtCardNumber";
             this.txtCardNumber.PlaceholderText = "Card Number (16 digits)";
 
-            // Expiry Date
+            // txtExpiry
             this.txtExpiry.Location = new Point(20, 260);
             this.txtExpiry.Width = 100;
+            this.txtExpiry.Name = "txtExpiry";
             this.txtExpiry.PlaceholderText = "MM/YY";
 
-            // CVV
+            // txtCVV
             this.txtCVV.Location = new Point(140, 260);
             this.txtCVV.Width = 80;
+            this.txtCVV.Name = "txtCVV";
             this.txtCVV.PlaceholderText = "CVV";
 
             // btnConfirm
@@ -90,7 +94,7 @@ namespace HotelBookingSystem.Forms
             this.btnConfirm.UseVisualStyleBackColor = true;
 
             // BookingConfirmationForm
-            this.ClientSize = new Size(500, 380);  // bigger window to fit payment
+            this.ClientSize = new Size(500, 380);
             this.Controls.Add(this.lblRoomDetails);
             this.Controls.Add(this.dtpCheckIn);
             this.Controls.Add(this.dtpCheckOut);

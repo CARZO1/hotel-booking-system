@@ -1,10 +1,14 @@
-﻿using HotelBookingSystem.Services;
+﻿using System;
+using System.IO;
 
-namespace HotelBookingSystem
+namespace HotelBookingSystemApp.Services
 {
     public static class GlobalServices
     {
-        // A single shared BookingService for the whole app
-        internal static BookingService BookingService { get; } = new BookingService();
+        public static readonly string BookingFilePath =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "bookings.txt");
+
+        public static readonly string CustomerFilePath =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "customers.txt");
     }
 }

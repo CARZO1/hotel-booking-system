@@ -33,10 +33,7 @@ namespace HotelBookingSystem.Forms
 
         private void btnManageBooking_Click(object sender, EventArgs e)
         {
-            // Create a BookingService instance
-            BookingService bookingService = new BookingService();
-
-            // Open the ManageBooking form and pass the service
+            // No need to create BookingServic.
             ManageBooking manageBookingForm = new ManageBooking();
             manageBookingForm.Show();
         }

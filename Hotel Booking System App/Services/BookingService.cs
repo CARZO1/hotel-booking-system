@@ -1,76 +1,106 @@
+using HotelBookingSystem.Models;
+using HotelBookingSystemApp.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using HotelBookingSystem.Models;
+
 
 namespace HotelBookingSystem.Services
 {
-    // Service to manage bookings
-    // NOTE: right now this is in memory only, no file/db
-    internal class BookingService
+    public static class BookingService
     {
-        // list to store bookings temporarily
-        private List<Booking> bookings = new List<Booking>();
-
-        // create a booking if no conflicts
-        public bool MakeBooking(string customerEmail, string roomNumber, DateTime checkIn, DateTime checkOut, decimal nightlyRate)
+        public static bool SaveBooking(Booking booking)
         {
-            // Check if any existing booking overlaps
-            bool hasConflict = bookings.Any(b =>
-                b.RoomNumber == roomNumber &&
-                !b.IsCancelled &&
-                b.CheckIn < checkOut &&
-                b.CheckOut > checkIn
-            );
-
-            if (hasConflict)
+            try
             {
-                return false; // conflict found, booking not created
-            }
-
-            // Create a new booking object
-            var newBooking = new Booking
-            {
-                BookingId = Guid.NewGuid().ToString(),
-                CustomerEmail = customerEmail,
-                RoomNumber = roomNumber,
-                CheckIn = checkIn,
-                CheckOut = checkOut,
-                TotalPrice = nightlyRate * Math.Max(1, (checkOut - checkIn).Days),
-                IsCancelled = false
-            };
-
-            // Add to the in-memory list
-            bookings.Add(newBooking);
-            return true;
-        }
-
-        // cancel booking by id
-        public bool CancelBooking(string bookingId)
-        {
-            var booking = bookings.FirstOrDefault(b => b.BookingId == bookingId);
-            if (booking != null)
-            {
-                booking.IsCancelled = true;
+                File.AppendAllText(GlobalServices.BookingFilePath, booking.ToFileString() + Environment.NewLine);
                 return true;
             }
-            return false;
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                $"Error saving booking: {ex.Message}",
+                "File Error",
+                System.Windows.Forms.MessageBoxButtons.OK,
+                System.Windows.Forms.MessageBoxIcon.Error
+                );
+                return false;
+            }
         }
 
-        // get all bookings for a room 
-        public List<Booking> GetBookingsForRoom(string roomNumber)
+
+        public static bool MakeBooking(string customerEmail, string roomNumber, DateTime checkIn, DateTime checkOut, decimal ratePerNight)
         {
-            return bookings
-                .Where(b => b.RoomNumber == roomNumber)
-                .ToList();
+            var existingBookings = File.Exists(GlobalServices.BookingFilePath)
+            ? File.ReadAllLines(GlobalServices.BookingFilePath)
+            .Select(line => Booking.FromFileString(line))
+            .Where(b => b != null)
+            .Cast<Booking>()
+            .ToList()
+            : new List<Booking>();
+
+
+            bool overlap = existingBookings.Any(b =>
+            b.RoomNumber == roomNumber &&
+            ((checkIn < b.CheckOut) && (checkOut > b.CheckIn))
+            );
+
+
+            if (overlap)
+                return false;
+
+
+            var booking = new Booking
+            {
+                RoomNumber = roomNumber,
+                CustomerEmail = customerEmail,
+                CheckIn = checkIn,
+                CheckOut = checkOut,
+                TotalPrice = (checkOut - checkIn).Days * ratePerNight
+            };
+
+
+            return SaveBooking(booking);
         }
 
-        // get all bookings for a customer (useful for "My Bookings" page)
-        public List<Booking> GetBookingsForCustomer(string customerEmail)
+
+        public static List<Booking> GetBookingsForCustomer(string customerEmail)
         {
-            return bookings
-                .Where(b => b.CustomerEmail == customerEmail)
-                .ToList();
+            return File.Exists(GlobalServices.BookingFilePath)
+            ? File.ReadAllLines(GlobalServices.BookingFilePath)
+            .Select(line => Booking.FromFileString(line))
+            .Where(b => b != null && b.CustomerEmail == customerEmail)
+            .Cast<Booking>()
+            .ToList()
+            : new List<Booking>();
+        }
+
+
+        public static bool CancelBooking(string bookingId)
+        {
+            if (!File.Exists(GlobalServices.BookingFilePath)) return false;
+
+
+            var all = File.ReadAllLines(GlobalServices.BookingFilePath)
+            .Select(line => Booking.FromFileString(line))
+            .Where(b => b != null)
+            .Cast<Booking>()
+            .ToList();
+
+
+            var booking = all.FirstOrDefault(b => b.BookingId == bookingId);
+            if (booking == null || booking.IsCancelled) return false;
+
+
+            booking.IsCancelled = true;
+
+
+            File.WriteAllLines(GlobalServices.BookingFilePath,
+            all.Select(b => b.ToFileString()));
+
+
+            return true;
         }
     }
 }

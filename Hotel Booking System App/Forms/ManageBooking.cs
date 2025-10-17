@@ -8,12 +8,9 @@ namespace HotelBookingSystem.Forms
 {
     public partial class ManageBooking : Form
     {
-        private readonly BookingService bookingService;
-
         internal ManageBooking()
         {
             InitializeComponent();
-            bookingService = GlobalServices.BookingService; 
 
             lblUser.Text = $"Bookings for: {Session.CurrentUserEmail}";
             LoadBookings();
@@ -26,7 +23,7 @@ namespace HotelBookingSystem.Forms
         {
             dgvBookings.DataSource = null;
 
-            var bookings = bookingService.GetBookingsForCustomer(Session.CurrentUserEmail);
+            var bookings = BookingService.GetBookingsForCustomer(Session.CurrentUserEmail);
             var displayList = bookings.Select(b => new
             {
                 b.BookingId,
@@ -54,7 +51,7 @@ namespace HotelBookingSystem.Forms
             var confirm = MessageBox.Show("Are you sure you want to cancel this booking?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.Yes)
             {
-                bool result = bookingService.CancelBooking(bookingId);
+                bool result = BookingService.CancelBooking(bookingId);
                 if (result)
                 {
                     MessageBox.Show("Booking cancelled successfully.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
